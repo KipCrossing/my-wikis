@@ -192,3 +192,35 @@ SELECT *
 FROM table_name
 WHERE column_name > 8;
 ```
+
+--------------------------------------------------------------------------------
+
+- **LIKE** - to compare similar values The pattern is identified by an underscore
+
+Wildcard character:
+
+- _- matches different characters. `data_.csv`will be true for`data1.csv`and`data5.csv`but not`data5.txt`
+- % - matches zero or more missing letters in the pattern. `The %` will be true for `The dog` and `The house` but not `A family`
+
+```sql
+SELECT *
+FROM table_name
+WHERE column_name LIKE 'recogni_e';
+
+SELECT *
+FROM table_name
+WHERE column_name LIKE 'The %';
+```
+
+--------------------------------------------------------------------------------
+
+- **IS NULL** - returns true for null values
+- **IS NOT NULL** - returns for values that are not null
+
+```sql
+SELECT column_name
+FROM table_name
+WHERE another_column_name IS NOT NULL;
+```
+
+--------------------------------------------------------------------------------
