@@ -60,6 +60,7 @@ SQL uses statements (ending with ;) to execute operations. Statements include
 - row name
 - parameters
 - DATATYPE - (in all caps)
+- CONSTRAINTS - (in all caps)
 
 Types of data include:
 
@@ -68,7 +69,11 @@ Types of data include:
 - **DATE**, the date formatted as YYYY-MM-DD
 - **REAL**, a decimal value
 
+--------------------------------------------------------------------------------
+
 ### Create Table
+
+- **CREATE** - to create a new table
 
 ```sql
 CREATE TABLE table_name (
@@ -78,40 +83,112 @@ CREATE TABLE table_name (
 );
 ```
 
-### Query Table
-
-```sql
-SELECT column_name FROM table_name;
-```
-
-Use * instead of column_name to get all columns
+--------------------------------------------------------------------------------
 
 ### Insert Into Table
+
+- **INSERT INTO** - insert a row into the table
 
 ```sql
 INSERT INTO table_name (id, name, age)
 ```
 
+--------------------------------------------------------------------------------
+
 ### Ulter table
 
-For adding columns
+- **ALTER TABLE** - Claus to alter a table
+- **ADD COLUMN** - Clause to add a column
 
 ```sql
 ALTER TABLE table_name
 ADD COLUMN new_column_name TEXT;
 ```
 
-- `ALTER TABLE` - Claus to alter a table
-- `ADD COLUMN` - Clause to add a column
+--------------------------------------------------------------------------------
 
 ### Update Row
 
+- **UPDATE** - clause that edits a row in the table
+- **SET** - clause that indicates the column to edit
+
 ```sql
 UPDATE table_name
-SET new_column_name = 'data to change'
-WHERE id = 4;
+SET new_column_name = 'data to change';
 ```
 
-- `UPDATE` - clause that edits a row in the table
-- `SET` - clause that indicates the column to edit
-- `WHERE` - clause that indicates which row(s) to update with the new column value
+--------------------------------------------------------------------------------
+
+### Delete Rows
+
+- **DELETE FROM** - clause that lets you delete rows from a table
+- **WHERE** - clause that lets you select which rows you want to delete
+- **IS NULL** - condition in SQL that returns true when the value is NULL and false otherwise
+
+```sql
+DELETE FROM table_name
+WHERE column_name IS NULL;
+```
+
+--------------------------------------------------------------------------------
+
+### Constraints
+
+- **PRIMARY KEY** - used to uniquely identify the row. Attempts to insert a row with an identical value to a row already in the table will result in a _constraint violation_
+- **UNIQUE** - columns must have a different value for every row
+- **NOT NULL** - columns must have a value. Attempts to insert a row without a value for a NOT NULL column will result in a _constraint violation_
+- **DEFAULT** - assumed value for an inserted row
+
+```sql
+CREATE TABLE table_name (
+   id INTEGER PRIMARY KEY,
+   name TEXT UNIQUE,
+   date_of_birth TEXT NOT NULL,
+   date_of_death TEXT DEFAULT 'Not Applicable'
+);
+```
+
+--------------------------------------------------------------------------------
+
+### Query Table
+
+- **SELECT** - can take multiple columns - `column_name1, column_name2`. Use `*` instead of column_name to get all columns
+- **FROM** - identifies the table
+
+```sql
+SELECT column_name FROM table_name;
+```
+
+--------------------------------------------------------------------------------
+
+- **AS** - to rename the column. The 'New name' should be in single quotes
+
+```sql
+SELECT column_name AS 'new name'
+FROM table_name;
+```
+
+--------------------------------------------------------------------------------
+
+- **DISTINCT** - used to return the unique values in the output
+
+```sql
+SELECT DISTINCT column_name
+FROM table_name;
+```
+
+--------------------------------------------------------------------------------
+
+- **WHERE** - Constraint followed by a Comparison operators that returns True or False Comparison operators include:
+- `=` equal to
+- `!=` not equal to
+- `>` greater than
+- `<` less than
+- `>=` greater than or equal to
+- `<=` less than or equal to
+
+```sql
+SELECT *
+FROM table_name
+WHERE column_name > 8;
+```
