@@ -30,7 +30,7 @@ sudo apt-get install default-mysql-server
 mysql_secure_installation
 ```
 
-[FRROE fixes here](https://stackoverflow.com/questions/37879448/mysql-fails-on-mysql-error-1524-hy000-plugin-auth-socket-is-not-loaded?noredirect=1)
+[ERROE fixes here](https://stackoverflow.com/questions/37879448/mysql-fails-on-mysql-error-1524-hy000-plugin-auth-socket-is-not-loaded?noredirect=1)
 
 Test the instilation:
 
