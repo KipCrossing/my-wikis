@@ -10,7 +10,7 @@ The most common _database management systems_ is **MySQL**, although there are o
 - SQLite
 - PostgreSQL
 - Oracle
-- - many more
+- & many more
 
 ## setting up
 
@@ -57,3 +57,58 @@ SQL uses statements (ending with ;) to execute operations. Statements include
 - CLAUSE - (in all caps) to perform specific tasks
 - table name
 - parameters
+
+Types of data:
+
+- **INTEGER**, a positive or negative whole number
+- **TEXT**, a text string
+- **DATE**, the date formatted as YYYY-MM-DD
+- **REAL**, a decimal value
+
+**Create Table**
+
+```sql
+CREATE TABLE table_name (
+  id INTEGER,
+  name TEXT,
+  age INTEGER
+);
+```
+
+**Query Table**
+
+```sql
+SELECT column_name FROM table_name;
+```
+
+Use * instead of column_name to get all columns
+
+**Insert Into Table**
+
+```sql
+INSERT INTO table_name (id, name, age)
+```
+
+**Ulter table**
+
+For adding columns
+
+```sql
+ALTER TABLE table_name
+ADD COLUMN new_column_name TEXT;
+```
+
+- `ALTER TABLE` - Claus to alter a table
+- `ADD COLUMN` - Clause to add a column
+
+**Update Row**
+
+```sql
+UPDATE table_name
+SET new_column_name = 'data to change'
+WHERE id = 4;
+```
+
+- `UPDATE` - clause that edits a row in the table
+- `SET` - clause that indicates the column to edit
+- `WHERE` - clause that indicates which row(s) to update with the new column value
