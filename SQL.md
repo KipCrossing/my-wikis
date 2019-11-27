@@ -30,7 +30,7 @@ sudo apt-get install default-mysql-server
 mysql_secure_installation
 ```
 
-[ERROE fixes here](https://stackoverflow.com/questions/37879448/mysql-fails-on-mysql-error-1524-hy000-plugin-auth-socket-is-not-loaded?noredirect=1)
+[ERROR fixes here](https://stackoverflow.com/questions/37879448/mysql-fails-on-mysql-error-1524-hy000-plugin-auth-socket-is-not-loaded?noredirect=1)
 
 Test the instilation:
 
@@ -56,16 +56,19 @@ SQL uses statements (ending with ;) to execute operations. Statements include
 
 - CLAUSE - (in all caps) to perform specific tasks
 - table name
+- column name
+- row name
 - parameters
+- DATATYPE - (in all caps)
 
-Types of data:
+Types of data include:
 
 - **INTEGER**, a positive or negative whole number
 - **TEXT**, a text string
 - **DATE**, the date formatted as YYYY-MM-DD
 - **REAL**, a decimal value
 
-**Create Table**
+### Create Table
 
 ```sql
 CREATE TABLE table_name (
@@ -75,7 +78,7 @@ CREATE TABLE table_name (
 );
 ```
 
-**Query Table**
+### Query Table
 
 ```sql
 SELECT column_name FROM table_name;
@@ -83,13 +86,13 @@ SELECT column_name FROM table_name;
 
 Use * instead of column_name to get all columns
 
-**Insert Into Table**
+### Insert Into Table
 
 ```sql
 INSERT INTO table_name (id, name, age)
 ```
 
-**Ulter table**
+### Ulter table
 
 For adding columns
 
@@ -101,7 +104,7 @@ ADD COLUMN new_column_name TEXT;
 - `ALTER TABLE` - Claus to alter a table
 - `ADD COLUMN` - Clause to add a column
 
-**Update Row**
+### Update Row
 
 ```sql
 UPDATE table_name
