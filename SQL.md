@@ -179,6 +179,8 @@ FROM table_name;
 
 --------------------------------------------------------------------------------
 
+## Where Claus
+
 - **WHERE** - Constraint followed by a Comparison operators that returns True or False Comparison operators include:
 - `=` equal to
 - `!=` not equal to
@@ -224,3 +226,84 @@ WHERE another_column_name IS NOT NULL;
 ```
 
 --------------------------------------------------------------------------------
+
+- **BETWEEN** - filter data between values. Used **AND** to combine conditions
+
+```sql
+SELECT *
+FROM table_name
+WHERE year BETWEEN 1990 AND 1999;
+
+SELECT *
+FROM table_name
+WHERE name BETWEEN 'A' AND 'J';
+```
+
+--------------------------------------------------------------------------------
+
+- **AND** - And operator
+- **OR** - Or operator
+
+```sql
+SELECT *
+FROM table_name
+WHERE year > 2014
+   AND name = 'Bill';
+
+SELECT *
+FROM table_name
+WHERE year > 2014
+   OR name = 'Bill';
+```
+
+--------------------------------------------------------------------------------
+
+## ORDER BY Clause
+
+- **ORDER BY** - clause that orders the rows With keywords:
+- -**DESC** - for descending
+- **ASC** - for ascending
+
+_Note: ORDER BY always goes after WHERE (if WHERE is present)_
+
+```sql
+SELECT *
+FROM table_name
+WHERE age > 18
+ORDER BY year DESC;
+```
+
+--------------------------------------------------------------------------------
+
+## LIMIT clause
+
+Used to reduce the output:
+
+- **LIMIT** - The maximum number of rows the result set will have
+
+```sql
+SELECT *
+FROM table_name
+LIMIT 10;
+```
+
+--------------------------------------------------------------------------------
+
+## CASES
+
+Usually placed in the **SELECT** statement, cases starts with **CASE** and ends with **END**
+
+Within the case statement:
+
+- **WHEN** to test a conditions
+- **ELSE** - if the condition(s) are not satisfied
+
+```sql
+SELECT column_name,
+ CASE
+  WHEN another_column_name > 8 THEN 'Good'
+  WHEN another_column_name > 5 THEN 'OK'
+  ELSE 'BAD'
+ END AS 'Qualitative'
+FROM table_name;
+```
