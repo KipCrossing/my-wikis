@@ -24,25 +24,9 @@ Architecture: x86-64
 
 ### Installing MySQL
 
-```shell
-sudo apt-get update
-sudo apt-get install default-mysql-server
-mysql_secure_installation
-```
+Setup was done following [these steps](https://tecadmin.net/install-mysql-on-debian-10-buster/)
 
 [ERROR fixes here](https://stackoverflow.com/questions/37879448/mysql-fails-on-mysql-error-1524-hy000-plugin-auth-socket-is-not-loaded?noredirect=1)
-
-Test the instilation:
-
-```shell
-systemctl status mysql.service
-```
-
-Check admin command:
-
-```shell
-mysqladmin -p -u root version
-```
 
 ### Setting up with Atom
 
@@ -261,7 +245,7 @@ WHERE year > 2014
 ## ORDER BY Clause
 
 - **ORDER BY** - clause that orders the rows With keywords:
-- -**DESC** - for descending
+- **DESC** - for descending
 - **ASC** - for ascending
 
 _Note: ORDER BY always goes after WHERE (if WHERE is present)_
