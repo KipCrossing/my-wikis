@@ -24,7 +24,7 @@ _main.js_
 
 ```javascript
 var app new Vue({
-  el: '#app'
+  el: '#app',
   data: {
     product: 'ham'
 
@@ -52,7 +52,7 @@ _main.js_
 
 ```javascript
 var app new Vue({
-  el: '#app'
+  el: '#app',
   data: {
     products: 'ham'
     image: '.assets/the_image.jpg'
@@ -90,7 +90,7 @@ _main.js_
 
 ```javascript
 var app new Vue({
-  el: '#app'
+  el: '#app',
   data: {
     product: 'ham'
     inStock: true
@@ -146,7 +146,7 @@ _main.js_
 
 ```javascript
 var app new Vue({
-  el: '#app'
+  el: '#app',
   data: {
     details: ['Detail1','Detail2','Detail3','Detail4']
     varients: [
@@ -190,7 +190,7 @@ _main.js_
 
 ```javascript
 var app new Vue({
-  el: '#app'
+  el: '#app',
   data: {
     cart: 0
   }
@@ -219,7 +219,7 @@ _main.js_
 
 ```javascript
 var app new Vue({
-  el: '#app'
+  el: '#app',
   data: {
     cart: 0
     addToCart: function () {
@@ -235,4 +235,71 @@ Shorthand for v-on:
 
 For more mouse events see [here](https://javascript.info/mouse-events-basics#mouse-event-types)
 
-### Class & style binding
+### computed Property
+
+_index.html_
+
+```html
+<div id="app">
+  <div class="product">
+    <div class="product-info">
+      <button v-on:click="addToCart" >Add to Cart</button>
+      <div>
+        <p>{{ title }}</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+```
+
+_main.js_
+
+```javascript
+var app new Vue({
+  el: '#app',
+  data: {
+    make: 'Nisan'
+    model: 'Patrol'
+
+    }
+  },
+  computed: {
+    title() {
+      return this.make + ' ' + this.model
+    }
+
+  }
+})
+```
+
+### Components
+
+Needs a root element
+
+```javascript
+Vue.component('product',{
+  props: [message],
+  template: '
+        <div>
+          <p>line 1</p>
+          <p> {{ message }} </p>
+        </div>',
+  data(){
+    return{
+      brand: 'Toyota'
+      specs: ['fast','strong','heavy duty']
+
+    }
+    }
+})
+
+var app new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello'
+  }  
+})
+```
+
+**Props** are for passing data into other components.
