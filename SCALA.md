@@ -1,13 +1,13 @@
 # SCALA
 
-## Setup
+## Setup IDE
 
 ### Install openjdk-8-jdk
 
 add in your sources.list
 
 ```
-sudo vim /etc/apt/sources.list
+sudo nano /etc/apt/sources.list
 ```
 
 following repo: deb <http://ftp.us.debian.org/debian> sid main then:
@@ -20,6 +20,12 @@ sudo apt-get install openjdk-8-jdk
 ### Install IntelliJ IDEA
 
 [Download IntelliJ IDEA](https://www.jetbrains.com/idea/)
+
+```
+sudo tar xzf ideaIC-2018.3.2.tar.gz -C /opt
+cd /opt/ideaIC-2018.3.2.tar.gz/bin
+./idea.sh
+```
 
 ### Setup SCALA project
 
