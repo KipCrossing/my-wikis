@@ -40,4 +40,36 @@ sudo apt-get update
 sudo apt-get install sbt
 ```
 
-## Syntax
+## Syntax and Methods
+
+### Map - dict opject
+
+### map - method for converting to another object
+
+Can be used on:
+
+- Collection - iterate
+- Option - run once
+- Future - run once
+
+
+good methods:
+
+`.filter(bool)`
+
+### Option
+
+For when it can be null
+
+can be either some or None
+
+```scala
+
+```
+
+A good method to use on it is `.getOrElse()`
+
+
+### Either
+
+can be either right of left
