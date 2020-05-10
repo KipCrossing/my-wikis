@@ -1,0 +1,13 @@
+/**
+  * Calculates the AWC -  Available Water Capacity (%)
+  * @param soilResults Map[String, Double] containing soil sample results
+  * @return awc Double
+  */
+def getAWC(soilResults: Map[String, Double]): Either[String,Double] ={
+  for {
+    dul <- getDUL(soilResults)
+    cll <- getCLL(soilResults, dul)
+  } yield {
+    dul - cll
+  }
+}
