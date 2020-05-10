@@ -16,9 +16,9 @@ Yes, we know open source is good, but sometimes we forget why we are doing it in
 
 ---
 
-## 2 Check what LICENSEs already exist or will be used in our codebase
+## 2 Check what LICENSEs already exist or will be used in your codebase
 
-No doubt, we will be using external libraries in our project. Depending on what LICENSE they use, we may have to adjust our LICENSE OR what libraries we use. There are 3 types of LICENSE: strong copyleft, weak copyleft or permissive.
+No doubt, you will be using external libraries in your project. Depending on what LICENSE they use, you may have to adjust your LICENSE OR what libraries you use. There are 3 types of LICENSE: strong copyleft, weak copyleft or permissive.
 
 **Strong Copyleft:** Code must be published if used
 **Weak Copyleft:** Code must be published only if the code-base has been modified
@@ -26,18 +26,19 @@ No doubt, we will be using external libraries in our project. Depending on what 
 
 ---
 
-## 3 Check the terms of service of where our software is hosted
+## 3 Check the terms of service of where your software is hosted
 
-There may be some rules that we may want to consider when choosing a platform to host our code. For instance, GitHub requires its users to allow forking.
+There may be some rules that you may want to consider when choosing a platform to host rour code. For instance, GitHub requires its users to allow forking.
 
 ---
 
 ## 4 Do you want derivatives, additions and distributions to use the same licence?
+
 Yes, copyleft. No, permissive.
 
 ---
 
-## 5 (If copyleft) Can others use my software in their own proprietary software?
+## 5 (If copyleft) Can others use your software in their own proprietary software?
 Yes, weak copyleft. No strong copyleft.
 
 ---
