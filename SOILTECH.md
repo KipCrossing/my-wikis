@@ -67,6 +67,8 @@ println(southZones) // [Zone01, Zone02, Zone03]
 
 val zBoundatry1 = Zone01.boundary()
 
+
+
 samsFarm.removeZones("South2")
 println(samsFarm.getZoneGroups()) // ["AllFarm","South"]
 ```
@@ -100,6 +102,11 @@ val paddock07 = samsFarm.paddock("paddock07")
 println(paddock07.attributes()) // ["elevation","kgamma","ugamma"]
 paddock07.addAttribute(ndvi, "path/to/ndvi.tif")
 println(paddock07.attributes()) // ["elevation","kgamma","ugamma", "ndvi"]
+
+// can also be done with Zones
+println(southZones[2].attributes()) // []
+southZones[2].addAttribute(ndvi, "path/to/ndvi.tif")
+println(southZones[2].attributes()) // ["ndvi"]
 ```
 
 Properties of attributes
@@ -113,6 +120,8 @@ println(paddock07.ph().sampleDate()) // 05-02-2020
 println(paddock07.ndvi().type()) // "cyclic"
 println(paddock07.ndvi().timestep()) // 0.125 - years
 println(paddock07.ndvi().lifecycle()) // 1 - year
+
+// NOTE: these concepts will be useful for nutrients
 ```
 
 ### Sample(location: (Double,Double), date: String)
@@ -135,23 +144,65 @@ val smple01 = samsFarm.addSample((-33.466643, 151.217735), "05-02-2020")
 val clay = sample01.getAttribute("clay")
 
 println(clay.depthRanges) // [(0,10),(10,40),(40,70)]
-println(clay,values) // [35.4, 27.8, 38.5]
+println(clay.values(clay.depthRanges)) // [35.4, 27.8, 38.5]
 
+// You can even get values form custom depthRanges
+
+clay.values([(0,15),(15,30),(30,70)]) // [33.2, 29.9, 36.7]
 sample01.removeAttribute("ph")
 ```
 
 ## Analyse your Farm
 
-### method
+### Suggest Soil sample locations
 
-- **GenSampleLocations(method: String, numSamples: Double, boundedGrid: List[either(Paddock, Zone)], attributes: 2dAttribute)**: List[(Double, Double)]
+#### method
 
-### example
+- **GenSampleLocations(method: String, numSamples: Double, boundedGrids: List[either(Paddock, Zone)], attributes: 2dAttribute)**: _List[(Double, Double)]_
+
+#### example
 
 ```scala
 val samplesLocationsAll = samsFarm.GenSampleLocations("clhc", 10) // whole farm, all  2dAttributes
 val samplesLocationsSouth = samsFarm.GenSampleLocations("clhc", 10, paddocks = [paddock01, paddock02], attributes = ["ndvi", "uGamma"])
 val samplesLocationsZones = samsFarm.GenSampleLocations("clhc", 3, [zone01])
 
-println(samplesLocationsZones) // [(-33.466644, 151.217701),(-33.466677, 151.217722),(-33.466683, 151.217755)]
+println(samplesLocationsZones) // [(-33.466644, 151.217701), (-33.466677, 151.217722),(-33.466683, 151.217755)]
+samplesLocationsZones.toFile("path/to/file")
+```
+
+### Convert Attributes to new Attribute
+
+#### method
+
+- **unlockAttributes(attributeNames: List[String])**
+
+#### properties
+
+- **availableAttributes**: _List[String]_
+
+#### example
+
+```scala
+println(samsFarm.available1dAttributes) // ["awc", "dul"]
+println(samsFarm.available2dAttributes) // ["bulkDensity"]
+
+println(samsFarm.getPaddocks()[0].attributeNames()) // ["clay"m "bd"]
+samsFarm.unlockAttributes(["awc"])
+println(samsFarm.getPaddocks()[0].attributeNames()) // ["clay"m "bd", "awc"]
+```
+
+### Create 3D digital soil map
+
+#### method
+
+- **createDSM()**: _List[((Double, Double), boundedGrid)]_
+
+List for each depth range
+
+#### example
+
+```scala
+samsFarm.createDSM("path/to.out/dir")
+samsFarm.createDSM("path/to.out/dir", [paddock01, paddock02], ["clay"])
 ```
