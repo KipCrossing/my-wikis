@@ -196,13 +196,13 @@ println(samsFarm.getPaddocks()[0].attributeNames()) // ["clay"m "bd", "awc"]
 
 #### method
 
-- **createDSM()**: _List[((Double, Double), boundedGrid)]_
+- **createDSM(filePath: String)**: _List[((Double, Double), boundedGrid)]_
 
 List for each depth range
 
 #### example
 
 ```scala
-samsFarm.createDSM("path/to.out/dir")
-samsFarm.createDSM("path/to.out/dir", [paddock01, paddock02], ["clay"])
+samsFarm.createDSM("path/to/out/dir")
+samsFarm.createDSM("path/to/out/dir", [paddock01, paddock02], ["clay"])
 ```
