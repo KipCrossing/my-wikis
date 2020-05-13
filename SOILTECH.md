@@ -114,12 +114,21 @@ Properties of attributes
 ```scala
 println(paddock07.elevation().unit()) // "m"
 println(paddock07.elevation().type()) // "static"
+
 println(paddock07.ph().type()) // "dynamic"
 println(paddock07.ph().timestep()) // 0.25 - years
 println(paddock07.ph().sampleDate()) // 05-02-2020
+
 println(paddock07.ndvi().type()) // "cyclic"
 println(paddock07.ndvi().timestep()) // 0.125 - years
 println(paddock07.ndvi().lifecycle()) // 1 - year
+println(paddock07.ndvi().sampleDate()) // 14-05-2020
+
+
+// Weighting
+println(paddock07.ndvi().weighting()) // 1
+println(paddock07.ndvi().updateWeighting(3))
+println(paddock07.ndvi().weighting()) // 3
 
 // NOTE: these concepts will be useful for nutrients
 ```
