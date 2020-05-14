@@ -12,6 +12,7 @@ Yes, we know open source is good, but sometimes we forget why we are doing it in
 - Create trust
 - Ensure uptake
 - Create a community
+- Disturb Market
 - Promote brand
 
 When choosing a license, you need to consider the rules (top section) and the warranty disclaimer (bottom ALL CAPS section) in context of the above reasons.
@@ -20,7 +21,7 @@ When choosing a license, you need to consider the rules (top section) and the wa
 
 ## 2 What don't we want "bad actors" to do with the code? Can it be prevented?
 
-Some licences grant the ability to modify copies of the source code without restriction. Others have rules around crediting the original contributors or publishing modifications. These type of rules, along with **trademark** and/or **ip**, can help deter bad actors from misuse.
+Some licences grant the ability to modify copies of the source code without restriction. Others have rules around crediting the original contributors or publishing modifications. These type of rules, along with **Brand**, **trademark** and/or **ip**, can help deter bad actors from misuse.
 
 ---
 
