@@ -12,7 +12,7 @@ Yes, we know open source is good, but sometimes we forget why we are doing it in
 - Create trust
 - Ensure uptake
 - Create a community
-- Disturb Market
+- Disrupt Market
 - Promote brand
 
 When choosing a license, you need to consider the rules (top section) and the warranty disclaimer (bottom ALL CAPS section) in context of the above reasons.
