@@ -36,8 +36,8 @@ Used to set or return properties
 #### methods
 
 - **addAttribute(attribue: GridAttribute)**:
-- **AllAttributes()** _Map[(String,2dAttribute)]_
-- **Attribute(attributeName: String)**: _2dAttribute_
+- **allAttributes()** _Map[String,2dAttribute]_
+- **attribute(attributeName: String)**: _2dAttribute_
 - **removeAttribute(attributeName: String)**
 
 #### properties
@@ -70,33 +70,38 @@ farm.addZone(paddock01)
 farm.addZone(paddock02)
 ```
 
---------------------------------------------------------------------------------
 
-# OLD
 
 Properties of attributes
 
 ```scala
-println(paddock07.elevation().unit()) // "m"
+println(elevation.unit()) // "m"
 println(paddock07.elevation().type()) // "static"
 
-println(paddock07.ph().type()) // "dynamic"
-println(paddock07.ph().timestep()) // 0.25 - years
-println(paddock07.ph().sampleDate()) // 05-02-2020
+println(ph.type()) // "dynamic"
+println(ph.timestep()) // 0.25 - years
+println(ph.sampleDate()) // 05-02-2020
+println(ph.managed()) // true
 
-println(paddock07.ndvi().type()) // "cyclic"
-println(paddock07.ndvi().timestep()) // 0.125 - years
-println(paddock07.ndvi().lifecycle()) // 1 - year
-println(paddock07.ndvi().sampleDate()) // 14-05-2020
+
+println(paddock07.attribute("ndvi").type()) // "cyclic"
+println(paddock07.attribute("ndvi").timestep()) // 0.125 - years
+println(paddock07.attribute("ndvi").lifecycle()) // 1 - year
+println(paddock07.attribute("ndvi").sampleDate()) // 14-05-2020
 
 
 // Weighting
-println(paddock07.ndvi().weighting()) // 1
-println(paddock07.ndvi().updateWeighting(3))
-println(paddock07.ndvi().weighting()) // 3
+println(paddock07.attribute("ndvi").weighting()) // 1
+paddock07.attribute("ndvi").weighting(3)
+println(paddock07.attribute("ndvi").weighting()) // 3
 
 // NOTE: these concepts will be useful for nutrients
 ```
+
+
+--------------------------------------------------------------------------------
+
+# OLD
 
 ## Sample(location: (Double,Double), date: String)
 
