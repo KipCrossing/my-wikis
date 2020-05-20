@@ -62,6 +62,8 @@ paddock01.addAttribute(ndvi)
 paddock01.addAttribute(elevation)
 paddock01.addAttribute(ugamma)
 paddock01.addAttribute(kgamma)
+
+val paddock02 = Zone(boundary02, "Paddock").addAttribute(ndvi).addAttribute(elevation).addAttribute(ugamma).addAttribute(kgamma)
 ```
 
 --------------------------------------------------------------------------------
