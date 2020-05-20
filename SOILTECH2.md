@@ -2,37 +2,14 @@
 
 ## preface
 
-This document is intended to be a collection of suggestions on how best to structure and refactor the current codebase to become a working library with intuitive API design. The perspective held, whilst making this document, is in the form of a software engineer attempting to integrate the soiltech tools with the guidance of an agronomist. Therefore the object structure and names will have to reflect existing agricultural structures (Farms, paddocks, samples...). Lastly, when practical, the UI (API) should be abstracted away from the underlying science and statistical methods for basic usage; but still, be accessible.
+This document is intended to be a collection of suggestions on how best to structure and refactor the current codebase to become a working library with intuitive API design. The perspective held, whilst making this document, is in the form of a software engineer attempting to integrate the soiltech tools with the guidance of an agronomist. Therefore the object structure and names will have to reflect existing agricultural structures (Tools, Zone, Sample...). Lastly, when practical, the UI (API) should be abstracted away from the underlying science and statistical methods for basic usage; but still, be accessible.
 
-Overall Structure This is a WIP and can be viewed and edited here: <https://app.creately.com/diagram/qcFaiYqyJnU/view>
 
-## Build your Farm
 
-### Farm(farmName: String, hadoopPath: String)
-
-#### methods
-
-- **addPaddock(paddockName: String, filePath: string)**: _Paddock_
-- **removePaddock(paddockName: String)**
-- **allPaddockNames()**: _List[String]_
-- **allPaddocks()**: _List[Paddock]_
-- **getGroupedPaddocks()**: _List[Lists[Paddock]]_
-- **paddock(paddockName: String)**: _Paddock_
-- **generateZones(numZones: Int, filePath: String, zoneGroupName: String, List[Paddock])**: _List[Zone]_
-- **removeZones(zoneGroupName: String)**
-- **zone(zoneGroupName: String)**: _List[Zone]_
-
-#### properties
-
-- **starndardAttributes()**: _List[String]_
-
-#### examples
-
-Adding paddocks to farm
 
 ```scala
-Import org.soiltech.agriculture.{Farm}
-val samsFarm = Farm("samsFarm", "local[*]")
+Import org.soiltech.agriculture.{Tools, Zone, Sample}
+
 
 samsFarm.addPaddock("paddock01", "docs/inputs/paddock01/")
 samsFarm.addPaddock("paddock02", "docs/inputs/paddock02/")
@@ -73,11 +50,14 @@ samsFarm.removeZones("South2")
 println(samsFarm.getZoneGroups()) // ["AllFarm","South"]
 ```
 
-### Paddock(boundary: Boundary, grids: List[grids])
+### Zone(boundary: Boundary,  type: String)
+
+ -  boundary - The boundary of the Zone
+ -  The type of zone: "Paddock", "PotentialManagementZone", "ManagementZone"
 
 #### methods
 
-- **addAttribute(attributeName: String, filePath: String)**: _2dAttribute_
+- **addAttribute(attributeName: String, grid: RDD[((Double,Double),Double)], unit: String, type: String, lifeSpan: Double)**: _2dAttribute_
 - **getAttribute(attributeName: String)**: _2dAttribute_
 - **removeAttribute(attributeName: String)**
 
@@ -118,8 +98,6 @@ println(paddock07.elevation().type()) // "static"
 println(paddock07.ph().type()) // "dynamic"
 println(paddock07.ph().timestep()) // 0.25 - years
 println(paddock07.ph().sampleDate()) // 05-02-2020
-println(paddock07.ph().managed()) // false
-
 
 println(paddock07.ndvi().type()) // "cyclic"
 println(paddock07.ndvi().timestep()) // 0.125 - years
@@ -148,6 +126,10 @@ println(paddock07.ndvi().weighting()) // 3
 - **location**: **(Double, Double)**
 
 ```scala
+
+
+
+
 val smple01 = samsFarm.addSample((-33.466643, 151.217735), "05-02-2020")
                 .addAttribute("clay", [(0,10),(10,40),(40,70)], [35.4, 27.8, 38.5])
                 .addAttribute("ph", [(0,10),(10,40),(40,70)], [8.5, 6.2, 7.7])
@@ -163,7 +145,7 @@ clay.values([(0,15),(15,30),(30,70)]) // [33.2, 29.9, 36.7]
 sample01.removeAttribute("ph")
 ```
 
-## Analyse your Farm
+## Analyse your Farm (Tools)
 
 ### Suggest Soil sample locations
 
