@@ -46,7 +46,7 @@ Used to set or return properties
 - **boundary()**: _Boundary_ -
 
 ```scala
-Import org.soiltech.agriculture.{Tools, Zone, Sample, ZoneAttribute, SampleAttribute}
+Import org.soiltech.agriculture.{Farm, Zone, Sample, ZoneAttribute, SampleAttribute}
 
 // ndviGrid of type RDD[((Double,Double),Double)]
 
@@ -64,6 +64,10 @@ paddock01.addAttribute(ugamma)
 paddock01.addAttribute(kgamma)
 
 val paddock02 = Zone(boundary02, "Paddock").addAttribute(ndvi).addAttribute(elevation).addAttribute(ugamma).addAttribute(kgamma)
+
+val farm = Farm("AndreasFarm")
+farm.addZone(paddock01)
+farm.addZone(paddock02)
 ```
 
 --------------------------------------------------------------------------------
