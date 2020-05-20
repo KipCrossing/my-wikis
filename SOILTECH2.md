@@ -4,19 +4,45 @@
 
 This document is intended to be a collection of suggestions on how best to structure and refactor the current codebase to become a working library with intuitive API design. The perspective held, whilst making this document, is in the form of a software engineer attempting to integrate the soiltech tools with the guidance of an agronomist. Therefore the object structure and names will have to reflect existing agricultural structures (Tools, Zone, Sample...). Lastly, when practical, the UI (API) should be abstracted away from the underlying science and statistical methods for basic usage; but still, be accessible.
 
+### GridAttribute(attributeName: String, grid: RDD[((Double,Double),Double)], unit: String, type: String, lifeSpan: Double)
 
+- **name**: Attribute Name - "clay", "ndvi", "elevation"
+- **type**:
+- **unit**:
+- **lifespan**:
+- **lifecycle**:
+- **date**:
+- **weighting**:
 
+#### Properties
+
+- name()
+- type()
+- unit()
+- lifespan()
+- lifecycle()
+- date()
+- weighting()
+
+### Zone(boundary: List[List[(Double,Double)]], type: String)
+
+- **boundary** - The boundary of the Zone
+- **type** of zone: "Paddock", "Potential", "Management"
+
+#### methods
+
+- **getAttribute(attributeName: String)**: _2dAttribute_
+- **removeAttribute(attributeName: String)**
+
+#### properties
+
+- **attributeNames()**: _List[String]_
+- **boundary()**: _Boundary_
 
 ```scala
-Import org.soiltech.agriculture.{Tools, Zone, Sample}
+Import org.soiltech.agriculture.{Tools, Zone, Sample, ZoneAttribute, SampleAttribute}
 
-
-samsFarm.addPaddock("paddock01", "docs/inputs/paddock01/")
-samsFarm.addPaddock("paddock02", "docs/inputs/paddock02/")
-samsFarm.addPaddock("paddock07", "docs/inputs/paddock07/")
-samsFarm.addPaddock("paddock07", "docs/inputs/paddock11/")
-
-samsFarm.removePaddock("paddock11")
+val paddock01 = Zone()
 ```
 
 Gouped paddocks
@@ -50,22 +76,6 @@ samsFarm.removeZones("South2")
 println(samsFarm.getZoneGroups()) // ["AllFarm","South"]
 ```
 
-### Zone(boundary: Boundary,  type: String)
-
- -  boundary - The boundary of the Zone
- -  The type of zone: "Paddock", "PotentialManagementZone", "ManagementZone"
-
-#### methods
-
-- **addAttribute(attributeName: String, grid: RDD[((Double,Double),Double)], unit: String, type: String, lifeSpan: Double)**: _2dAttribute_
-- **getAttribute(attributeName: String)**: _2dAttribute_
-- **removeAttribute(attributeName: String)**
-
-#### properties
-
-- **attributeNames()**: _List[String]_
-- **boundary()**: _Boundary_
-
 #### examples
 
 Adding an attribute to paddock
@@ -73,7 +83,7 @@ Adding an attribute to paddock
 ```scala
 
 val stanAtt = samsFarm.starndardAttributes()
-println(stanAtt) // ["sand", "silt", "clay", "ph", "ndvi" …...]
+println(stanAtt) // ["sand", "silt", "clay", "ph", "ndvi", ...]
 
 val ndvi = stanAtt[4]
 
