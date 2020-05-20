@@ -4,17 +4,20 @@
 
 This document is intended to be a collection of suggestions on how best to structure and refactor the current codebase to become a working library with intuitive API design. The perspective held, whilst making this document, is in the form of a software engineer attempting to integrate the soiltech tools with the guidance of an agronomist. Therefore the object structure and names will have to reflect existing agricultural structures (Tools, Zone, Sample...). Lastly, when practical, the UI (API) should be abstracted away from the underlying science and statistical methods for basic usage; but still, be accessible.
 
-### GridAttribute(attributeName: String, grid: RDD[((Double,Double),Double)], unit: String, type: String, lifeSpan: Double)
+### ZoneAttribute(attributeName: String, grid: RDD[((Double,Double),Double)], unit: String, type: String, lifeSpan: Double)
 
 - **name**: Attribute Name - "clay", "ndvi", "elevation"
-- **type**:
-- **unit**:
-- **lifespan**:
-- **lifecycle**:
-- **date**:
-- **weighting**:
+- **type**: Attribute Type - "static", "dynamic", "cyclic"
+- **unit**: Attribute Type - "m", "mm",
+- **lifespan**: (Only dynamic samples) Period that the reading is valid - 0.25 years
+- **lifecycle**: (only cyclic samples) Period that the reading should generally repeat - 1 year
+- **date**: Date that the reading was taken
+- **weighting**: Importance weighting. Useful for creating PMZ
+- **managed**: true, false
 
-#### Properties
+  #### Methods
+
+Used to set or return properties
 
 - name()
 - type()
@@ -23,6 +26,7 @@ This document is intended to be a collection of suggestions on how best to struc
 - lifecycle()
 - date()
 - weighting()
+- managed()
 
 ### Zone(boundary: List[List[(Double,Double)]], type: String)
 
@@ -31,73 +35,38 @@ This document is intended to be a collection of suggestions on how best to struc
 
 #### methods
 
-- **getAttribute(attributeName: String)**: _2dAttribute_
+- **addAttribute(attribue: GridAttribute)**:
+- **AllAttributes()** _Map[(String,2dAttribute)]_
+- **Attribute(attributeName: String)**: _2dAttribute_
 - **removeAttribute(attributeName: String)**
 
 #### properties
 
 - **attributeNames()**: _List[String]_
-- **boundary()**: _Boundary_
+- **boundary()**: _Boundary_ -
 
 ```scala
 Import org.soiltech.agriculture.{Tools, Zone, Sample, ZoneAttribute, SampleAttribute}
 
-val paddock01 = Zone()
+// ndviGrid of type RDD[((Double,Double),Double)]
+
+val ndvi = ZoneAttribute("ndvi", ndviGrid, "", "cyclic", 1.0, "05-05-2020", 1, false)
+val elevation = ZoneAttribute("elevation", elevationGrid, "m", "static", "05-05-2020", 1, false)
+val ugamma = ZoneAttribute("ugamma", ugammaGrid, "", "dynamic", 5.0, "05-05-2017", 1, false)
+val kgamma = ZoneAttribute("kgamma", kgammaGrid, "", "dynamic", 5.0, "05-05-2017", 1, false)
+
+// boundary01 type List[List[(Double,Double)]]
+
+val paddock01 = Zone(boundary01, "Paddock")
+paddock01.addAttribute(ndvi)
+paddock01.addAttribute(elevation)
+paddock01.addAttribute(ugamma)
+paddock01.addAttribute(kgamma)
 ```
 
-Gouped paddocks
+--------------------------------------------------------------------------------
 
-```scala
-val paddocks = samsFarm.getPaddocks()
-println(paddocks) // [paddock01, paddock02, paddock07]
-
-val groups = samsFarm.getGroupedPaddocks()
-println(groups[0]) // [paddock01, paddock02]
-println(groups[1]) // [paddock07]
-samsFarm.removePaddock(paddock07)
-samsFarm.removePaddocks([paddock07,paddock01])
-```
-
-Creating Zones
-
-```scala
-samsFarm.generateZones(3, "docs/zones/", "AllFarm") // For all paddocks
-samsFarm.generateZones(3, "docs/zones/", "South", [paddock01, paddock02]) // for only these two paddocks
-samsFarm.generateZones(6, "docs/zones/", "South2", groups[0])
-
-val southZones = samsFarm.getZones("South")
-println(southZones) // [Zone01, Zone02, Zone03]
-
-val zBoundatry1 = Zone01.boundary()
-
-
-
-samsFarm.removeZones("South2")
-println(samsFarm.getZoneGroups()) // ["AllFarm","South"]
-```
-
-#### examples
-
-Adding an attribute to paddock
-
-```scala
-
-val stanAtt = samsFarm.starndardAttributes()
-println(stanAtt) // ["sand", "silt", "clay", "ph", "ndvi", ...]
-
-val ndvi = stanAtt[4]
-
-val paddock07 = samsFarm.paddock("paddock07")
-
-println(paddock07.attributes()) // ["elevation","kgamma","ugamma"]
-paddock07.addAttribute(ndvi, "path/to/ndvi.tif")
-println(paddock07.attributes()) // ["elevation","kgamma","ugamma", "ndvi"]
-
-// can also be done with Zones
-println(southZones[2].attributes()) // []
-southZones[2].addAttribute(ndvi, "path/to/ndvi.tif")
-println(southZones[2].attributes()) // ["ndvi"]
-```
+# OLD
 
 Properties of attributes
 
@@ -123,15 +92,15 @@ println(paddock07.ndvi().weighting()) // 3
 // NOTE: these concepts will be useful for nutrients
 ```
 
-### Sample(location: (Double,Double), date: String)
+## Sample(location: (Double,Double), date: String)
 
-#### methods
+### methods
 
 - **addAttribute(attributeName: Sting, depthRanges: List[(Double, Double)], values: List[Double])**: _1dAttribute_
 - **getAttribute(attributeName: String)**: _1dAttribute_
 - **removeAttribute(attributeName: String)**
 
-#### properties
+### properties
 
 - **location**: **(Double, Double)**
 
@@ -156,6 +125,22 @@ sample01.removeAttribute("ph")
 ```
 
 ## Analyse your Farm (Tools)
+
+### Creating Zones
+
+```scala
+samsFarm.generateZones(3, "docs/zones/", "AllFarm") // For all paddocks
+samsFarm.generateZones(3, "docs/zones/", "South", [paddock01, paddock02]) // for only these two paddocks
+samsFarm.generateZones(6, "docs/zones/", "South2", groups[0])
+
+val southZones = samsFarm.getZones("South")
+println(southZones) // [Zone01, Zone02, Zone03]
+
+val zBoundatry1 = Zone01.boundary()
+
+samsFarm.removeZones("South2")
+println(samsFarm.getZoneGroups()) // ["AllFarm","South"]
+```
 
 ### Suggest Soil sample locations
 
