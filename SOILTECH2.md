@@ -120,11 +120,12 @@ println(paddock07.attribute("ndvi").weighting()) // 3
 
 
 
-val smple01 = samsFarm.addSample((-33.466643, 151.217735), "05-02-2020")
-                .addAttribute("clay", [(0,10),(10,40),(40,70)], [35.4, 27.8, 38.5])
-                .addAttribute("ph", [(0,10),(10,40),(40,70)], [8.5, 6.2, 7.7])
+val smple01 = Sample((-33.466643, 151.217735), "05-02-2020")
 
-val clay = sample01.getAttribute("clay")
+smple01.addAttribute("clay", [(0,10),(10,40),(40,70)], [35.4, 27.8, 38.5])
+smple01.addAttribute("ph", [(0,10),(10,40),(40,70)], [8.5, 6.2, 7.7])
+
+val clay = sample01.attribute("clay")
 
 println(clay.depthRanges) // [(0,10),(10,40),(40,70)]
 println(clay.values(clay.depthRanges)) // [35.4, 27.8, 38.5]
