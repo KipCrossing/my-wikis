@@ -2,7 +2,19 @@
 
 ## preface
 
-This document is intended to be a collection of suggestions on how best to structure and refactor the current codebase to become a working library with intuitive API design. The perspective held, whilst making this document, is in the form of a software engineer attempting to integrate the soiltech tools with the guidance of an agronomist. Therefore the object structure and names will have to reflect existing agricultural structures (Tools, Zone, Sample...). Lastly, when practical, the UI (API) should be abstracted away from the underlying science and statistical methods for basic usage; but still, be accessible.
+This document is intended to be a collection of suggestions on how best to structure and refactor the current codebase to become a working library with intuitive API design. The perspective held, whilst making this document, is in the form of a software engineer attempting to integrate the soiltech tools with the guidance of an agronomist. Therefore the object structure and names will have to reflect existing agricultural structures (Tools, Zone, Sample...). Lastly, when practical, the UI (API) should be abstracted away from the underlying science and statistical methods for basic usage; but still, be accessible. For example:
+
+processors:
+
+```scala
+org.soiltech.processors.LHCProcessor.runLHCPerZone(Dataset01, zones: ZonesMap, LHCConfig)
+```
+
+agriculture:
+
+```scala
+org.soiltech.agriculture.Farm.GenSampleLocations("clhc", 10, paddocks = [paddock01, paddock02], attributes = ["ndvi", "uGamma"])
+```
 
 ### ZoneAttribute(attributeName: String, grid: RDD[((Double,Double),Double)], unit: String, type: String, lifeSpan: Double)
 
