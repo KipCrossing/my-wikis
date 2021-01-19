@@ -12,3 +12,15 @@ A Repository for me to keep my wikis in one place
 - [Python for QGIS](QGIS-Python.md)
 - [Scala](SCALA.md)
 - [SQL](SQL.md)
+
+---
+
+```python
+from collections import Counter,namedtuple
+
+Point = namedtuple("point", "x,y")
+
+pt = Point(1,-2)
+print(pt.x,pt.y)
+print(pt[0])
+```
